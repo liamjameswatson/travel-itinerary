@@ -19,6 +19,10 @@ function Form() {
   );
 }
 
-function PackingList() {}
+function PackingList() {
+  return (
+    <div>List</div>
+  )
+}
 
 function Stats() {}
