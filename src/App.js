@@ -1,6 +1,6 @@
 export default function App() {
   return (
-    <div>
+    <div className="app">
       <Logo />
       <Form />
       <PackingList />
@@ -15,19 +15,19 @@ function Logo() {
 
 function Form() {
   return (
-    <div>
+    <div className="add-form">
       <h3>What do you need for your 😍 trip?</h3>
     </div>
   );
 }
 
 function PackingList() {
-  return <div>List</div>;
+  return <div className="list">List</div>;
 }
 
 function Stats() {
   return (
-    <footer>
+    <footer className="stats">
       <em>👜 You have X items on your list, and you already packed X (%)</em>
     </footer>
   );
