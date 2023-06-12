@@ -1,10 +1,12 @@
 export default function App() {
-  <div>
-    <Logo />
-    <Form />
-    <PackingList />
-    <Stats />
-  </div>;
+  return (
+    <div>
+      <Logo />
+      <Form />
+      <PackingList />
+      <Stats />
+    </div>
+  );
 }
 
 function Logo() {
