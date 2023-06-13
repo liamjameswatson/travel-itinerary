@@ -21,6 +21,15 @@ export default function App() {
       )
     );
   }
+  // reset button
+  function handleReset() {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all items?"
+    );
+    if (!confirmed) return;
+    setItems([]);
+  }
+
   return (
     <div className="app">
       <Logo />
@@ -29,6 +38,7 @@ export default function App() {
         items={items}
         onDeteleItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
+        onReset={handleReset}
       />
       <Stats itemsArray={items} />
     </div>
@@ -85,12 +95,30 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeteleItem, onToggleItem }) {
+function PackingList({ items, onDeteleItem, onToggleItem, onReset }) {
+  // functionality for sort dropdown options
+  const [sortBy, setSortBy] = useState("input");
+
+  let sortedItems;
+  // sorts by input order
+  if (sortBy === "input") sortedItems = items;
+
+  // sorts item alphabetically
+  if (sortBy === "description")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+  // sorts by packed status
+  if (sortBy === "packed")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+
   return (
     <div className="list">
       <ul>
         {/* for each item  render an Item compopent*/}
-        {items.map((item) => (
+        {sortedItems.map((item) => (
           <Item
             itemObj={item}
             key={item.id}
@@ -99,6 +127,18 @@ function PackingList({ items, onDeteleItem, onToggleItem }) {
           />
         ))}
       </ul>
+
+      {/* sort dropdown */}
+      <div className="actions">
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by description</option>
+          <option value="packed">Sort by packed status</option>
+        </select>
+
+        {/* reset button */}
+        <button onClick={onReset}>Clear List</button>
+      </div>
     </div>
   );
 }
